@@ -5,6 +5,8 @@ import { imageUpload } from "../../../api/utils";
 
 const AddRoom = () => {
   const { user } = useAuth();
+  const [imgPreview, setImgPreview] = useState();
+  const [imgText, setImgText] = useState("Upload Image");
   const [dates, setDates] = useState({
     startDate: new Date(),
     endDate: null,
@@ -58,6 +60,8 @@ const AddRoom = () => {
       {/* form */}
       <AddRoomForm
         dates={dates}
+        setImgPreview={setImgPreview}
+        imgPreview={imgPreview}
         handleSubmit={handleSubmit}
         handleDateRange={handleDateRange}
       />

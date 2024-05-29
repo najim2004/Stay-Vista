@@ -2,7 +2,13 @@ import { useState } from "react";
 import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 
-const AddRoomForm = ({ handleDateRange, dates, handleSubmit }) => {
+const AddRoomForm = ({
+  setImgPreview,
+  handleDateRange,
+  dates,
+  handleSubmit,
+  imgPreview,
+}) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
       <form onSubmit={handleSubmit}>
@@ -68,11 +74,14 @@ const AddRoomForm = ({ handleDateRange, dates, handleSubmit }) => {
               />
             </div>
 
-            <div className=" p-4 bg-white w-full  m-auto rounded-lg">
-              <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
+            <div className=" p-4 bg-white w-full flex items-center justify-between gap-4  m-auto rounded-lg">
+              <div className="file_upload w-full px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
                 <div className="flex flex-col w-max mx-auto text-center">
                   <label>
                     <input
+                      onChange={(e) =>
+                        setImgPreview(URL.createObjectURL(e.target.files[0]))
+                      }
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
                       name="image"
@@ -86,6 +95,11 @@ const AddRoomForm = ({ handleDateRange, dates, handleSubmit }) => {
                   </label>
                 </div>
               </div>
+              {imgPreview && (
+                
+                  <img className="h-[70px] max-w-[150px] rounded-sm flex-1" src={imgPreview} alt="" />
+                
+              )}
             </div>
             <div className="flex justify-between gap-2">
               <div className="space-y-1 text-sm">
