@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const AddRoomForm = ({
   setImgPreview,
@@ -8,6 +9,9 @@ const AddRoomForm = ({
   dates,
   handleSubmit,
   imgPreview,
+  setImgText,
+  imgText,
+  loading,
 }) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -79,9 +83,10 @@ const AddRoomForm = ({
                 <div className="flex flex-col w-max mx-auto text-center">
                   <label>
                     <input
-                      onChange={(e) =>
-                        setImgPreview(URL.createObjectURL(e.target.files[0]))
-                      }
+                      onChange={(e) => {
+                        setImgPreview(URL.createObjectURL(e.target.files[0]));
+                        setImgText(e.target.files[0].name);
+                      }}
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
                       name="image"
@@ -90,15 +95,21 @@ const AddRoomForm = ({
                       hidden
                     />
                     <div className="bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500">
-                      Upload Image
+                      {imgText > 15
+                        ? imgText?.split(".")[0].slice(0, 15) +
+                          "..." +
+                          imgText?.split(".")[1]
+                        : imgText}
                     </div>
                   </label>
                 </div>
               </div>
               {imgPreview && (
-                
-                  <img className="h-[70px] max-w-[150px] rounded-sm flex-1" src={imgPreview} alt="" />
-                
+                <img
+                  className="h-[70px] max-w-[150px] rounded-sm flex-1"
+                  src={imgPreview}
+                  alt=""
+                />
               )}
             </div>
             <div className="flex justify-between gap-2">
@@ -176,10 +187,15 @@ const AddRoomForm = ({
         </div>
 
         <button
+          disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500"
         >
-          Save & Continue
+          {loading ? (
+            <TbFidgetSpinner className="animate-spin m-auto" />
+          ) : (
+            "Save & Continue"
+          )}
         </button>
       </form>
     </div>

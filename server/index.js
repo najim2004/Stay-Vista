@@ -91,6 +91,13 @@ async function run() {
       const result = await roomsCollection.find(query).toArray();
       res.send(result);
     });
+    // save a room data in the database
+    app.post("/room", async (req, res) => {
+      const room = req.body;
+      const result = await roomsCollection.insertOne(room);
+      res.send(result);
+    });
+
     // get single room data
     app.get("/rooms/:id", async (req, res) => {
       const id = req.params.id;

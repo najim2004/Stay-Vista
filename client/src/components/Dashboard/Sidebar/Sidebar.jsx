@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import { BsFillHouseAddFill, BsFingerprint } from "react-icons/bs";
-import { GrUserAdmin } from "react-icons/gr";
+import { BsFillHouseAddFill } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
