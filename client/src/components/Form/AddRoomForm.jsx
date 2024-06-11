@@ -95,7 +95,7 @@ const AddRoomForm = ({
                       hidden
                     />
                     <div className="bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500">
-                      {imgText > 15
+                      {imgText?.length > 15
                         ? imgText?.split(".")[0].slice(0, 15) +
                           "..." +
                           imgText?.split(".")[1]
@@ -134,7 +134,7 @@ const AddRoomForm = ({
                 <input
                   className="w-full bg-white px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                   name="total_guest"
-                  id="guest"
+                  id="guests"
                   type="number"
                   placeholder="Total guest"
                   required
