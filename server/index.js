@@ -89,12 +89,30 @@ async function run() {
     // save user data in db
     app.put("/user", async (req, res) => {
       const user = req.body;
+      const isExist = await usersCollection.findOne({ email: user?.email });
+
+      if (isExist) {
+        if (user?.status === "Requested") {
+          const result = await usersCollection.updateOne(
+            { email: user?.email },
+            { $set: { status: "Requested" } }
+          );
+          return res.send(result);
+        } else {
+          return res.send(isExist);
+        }
+      }
       const updatedDoc = { $set: { ...user, timestamp: Date.now() } };
       const result = await usersCollection.updateOne(
         { email: user?.email },
         updatedDoc,
         { upsert: true }
       );
+      res.send(result);
+    });
+    // get all users data from database
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
       res.send(result);
     });
 
