@@ -124,6 +124,17 @@ async function run() {
       res.send(result);
     });
 
+    // update a user
+    app.patch("/users/update/:email", async (req, res) => {
+      const user = req.body;
+      const email = req.params.email;
+      const result = await usersCollection.updateOne(
+        { email },
+        { $set: { ...user, timestamp: Date.now() } }
+      );
+      res.send(result);
+    });
+
     // get all rooms from db
     app.get("/rooms", async (req, res) => {
       let query = {};

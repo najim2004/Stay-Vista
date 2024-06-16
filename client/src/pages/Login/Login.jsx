@@ -32,6 +32,7 @@ const Login = () => {
       form.reset();
     } catch (err) {
       toast.error(err.massage);
+      setLoading(false);
       console.log(err);
     }
   };
