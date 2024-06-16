@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import { BsFillHouseAddFill } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { MdHomeWork } from "react-icons/md";
 import useRole from "../../../hooks/useRole";
 import MenuItem from "./Menu/MenuItem";
 import HostMenu from "./Menu/HostMenu";
@@ -19,8 +16,11 @@ const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
   const [role, isLoading] = useRole();
+  const [toggle, setToggle] = useState(true);
 
-  const toggleHandler = () => {};
+  const toggleHandler = () => {
+    setToggle(!toggle);
+  };
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -76,7 +76,9 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             {/* Conditional toggle button here.. */}
-            {role === "host" && <ToggleBtn toggleHandler={toggleHandler} />}
+            {role === "host" && (
+              <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />
+            )}
 
             {/*  Menu Items */}
             <nav>
@@ -87,7 +89,7 @@ const Sidebar = () => {
                 icon={BsGraphUp}
               />
               {role === "guest" && <GuestMenu />}
-              {role === "host" && <HostMenu />}
+              {role === "host" ? toggle ? <HostMenu /> : <GuestMenu /> : null}
               {role === "admin" && <AdminMenu />}
             </nav>
           </div>
